@@ -175,3 +175,82 @@ We filled in missing fields in the following procedures.
 Feature engineering is the process of selecting, manipulating, and transforming raw data into features that can be used in supervised learning. Sometimes, the current fields in the raw data cannot offer us sufficient information we need to detect score, so creating new and meaningful variables are important to help us build a more reliable model.
 
 In this section, we will show our methodology for creating new variables. We don’t really care about the relationship between different variables and we only want to create as many meaningful variables as possible. We will cover how to do the feature selection in the next part.
+
+### 4.1 Fraud Types
+Card fraud could be introduced from two perspectives, one is the victim and another one is the frauder.
+
+Credit card fraud can happen if someone physically steals the card or virtually hacks the user’s account. From the perspective of victims, there might be large amounts of transactions happening on their cards or accounts in a short time. From the perspective of frauders, they might control multiple accounts and purchase things from the same merch. The number and transactions from one merch could also be important.
+
+### 4.2 Variables Creation
+From the introduction of the fraud type above, we could get two conclusions. First, the entities matter. The transactions from one card/merch could be used as a flag of fraud. Second, the measurement methods are also important. The number/ amount/average amount could from different entities offer us information from different perspectives.
+
+Entity
+
+In this case, we create 27 entities from three perspectives: card, merch, location
+
+<img width="470" alt="Screenshot 2023-10-10 at 5 14 18 PM" src="https://github.com/jennyliyiyuan/Card-Transaction-Fraud-Detection/assets/133256378/352b3971-98e2-4939-93fe-46e45fd4315f">
+
+<img width="476" alt="Screenshot 2023-10-10 at 5 14 58 PM" src="https://github.com/jennyliyiyuan/Card-Transaction-Fraud-Detection/assets/133256378/49b71dab-42c8-4529-bed5-f9f175507d11">
+
+<img width="479" alt="Screenshot 2023-10-10 at 5 15 16 PM" src="https://github.com/jennyliyiyuan/Card-Transaction-Fraud-Detection/assets/133256378/7995b5b4-895e-4896-987d-06a1049d58eb">
+
+*State_risk is the fraud risk of each state. The calculation is shown in the following formula. This method could help us smooth the value and avoid overfitting. 
+
+<img width="296" alt="Screenshot 2023-10-10 at 5 15 57 PM" src="https://github.com/jennyliyiyuan/Card-Transaction-Fraud-Detection/assets/133256378/d0145350-6d9f-4a21-adc4-c877a9a1eb8a">
+
+Variable
+
+The variables also covers the following topics: Recency, Frequency, Amount, Velocity Change, Uniqueness, Variability
+
+- Recency (27): The number of days since the last transaction. If it is the first transaction for one card, then use 365 days.
+  
+- Frequency (189): The number of transactions that happen over the past 0/1/3/7/14/30/60 days across a given entity.
+  
+- Amount (1512) : The average / median / max / total / (actual/average) / (actual/max) / (actual/median) / (actual/total) of transactions amount happens over past past 0/1/3/7/14/30/60 days across a given entity.
+- Velocity Change (216): Velocity change is the number of transactions over the past 0/1 day divided by the average number of transactions over the past 7/14/30/60 days.
+  
+- Uniqueness (702): Uniqueness is the number of unique entities A across entity B.
+  
+- Variability (486): Variability is the average of transactions average/median/max change
+over the past 0/1/3/7/14/30
+
+As a result, we created 3132 variables after the feature engineering and our next step is to pick up the most meaningful variables from them.
+
+## 5. Feature Selection
+The procedurally generated expert variables contain valuable information extracted from the original data; however, they cannot be fed into a machine learning model directly, because the dimensionality is too high. Training a model with such high dimensionality can take an extremely long time, rendering most algorithms computationally intractable. Besides, some models may grow unnecessarily complicated and suffer from overfitting greatly, if we do manage to train them. Thus, feature selection is vital to the success of building machine learning models.
+
+Feature selection is the process of selecting the best subset of relevant features for use in model construction. It is desirable to reduce the number of input variables to both reduce the computational cost of modeling and, in some cases, to improve the performance of the model.
+
+Generally, there are three major categories of feature selection methods: filter, wrapper, and embedded. Filter methods calculate statistics or correlation to rank all features and determine which ones are to be excluded. Wrapper methods, like the name, implies, ‘wrap’ around some machine learning models and use them as predictors to evaluate the importance of each feature. And embedded methods incorporate feature selection within the model training process, intended to reduce the intense computation needed for wrapper methods while retaining decent selection. Here, we use filter and wrapper methods to select our features.
+
+Feature selection techniques are used for several reasons:
+● Reduces the complexity of a model and makes it easier to interpret.
+
+● Enables the machine learning algorithm to train faster.
+
+● Avoid the curse of dimensionality.
+
+● Improves the accuracy of a model if the right subset is chosen.
+
+● Reduces overfitting.
+
+### 5.1 Filter
+Filter methods select variables regardless of the model. Instead, features are selected on the basis of their scores in various statistical tests for their correlation with the outcome variable. The correlation is a subjective term here. It picks up the intrinsic properties of the features measured via univariate statistics instead of cross-validation performance. Filter methods suppress the least interesting variables. The other variables will be part of a classification or a regression model used to classify or predict data. These methods are particularly effective in computation time and robust to overfitting.
+
+<img width="496" alt="Screenshot 2023-10-10 at 5 18 17 PM" src="https://github.com/jennyliyiyuan/Card-Transaction-Fraud-Detection/assets/133256378/91c97107-015a-4980-8f7d-84c8b83fe163">
+
+The following table is generally used to define correlation coefficients.
+
+<img width="468" alt="Screenshot 2023-10-10 at 5 18 44 PM" src="https://github.com/jennyliyiyuan/Card-Transaction-Fraud-Detection/assets/133256378/15f89a47-6660-4c8c-9195-f0344353c04b">
+
+● Pearson’s Correlation: It is used as a measure for quantifying linear dependence between two continuous variables X and Y. Its value varies from -1 to +1. Pearson’s correlation is given as:
+
+<img width="129" alt="Screenshot 2023-10-10 at 5 19 03 PM" src="https://github.com/jennyliyiyuan/Card-Transaction-Fraud-Detection/assets/133256378/b5358c16-f48f-4ece-a08b-b2692bc40bb9">
+
+● LDA: Linear discriminant analysis is used to find a linear combination of features that characterizes or separates two or more classes (or levels) of a categorical variable.
+
+● ANOVA: ANOVA stands for Analysis of variance. It is similar to LDA except for the fact that it is operated using one or more categorical independent features and one continuous dependent feature. It provides a statistical test of whether the means of several groups are equal or not.
+
+● Chi-Square: It is a statistical test applied to the groups of categorical features to evaluate the likelihood of correlation or association between them using their frequency distribution.
+
+But one thing that should be kept in mind is that the filter method does not remove multicollinearity. So, we must deal with the multicollinearity of features as well before training models for our data.
