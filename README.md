@@ -194,9 +194,11 @@ In this case, we create 27 entities from three perspectives: card, merch, locati
 
 <img width="479" alt="Screenshot 2023-10-10 at 5 15 16 PM" src="https://github.com/jennyliyiyuan/Card-Transaction-Fraud-Detection/assets/133256378/7995b5b4-895e-4896-987d-06a1049d58eb">
 
-*State_risk is the fraud risk of each state. The calculation is shown in the following formula. This method could help us smooth the value and avoid overfitting. 
+*State_risk is the fraud risk of each state. The calculation is shown in the following formula. This method could help us smooth the value and avoid overfitting. ( Statistical Smoothing: c = 4, nmid = 20)
 
 <img width="296" alt="Screenshot 2023-10-10 at 5 15 57 PM" src="https://github.com/jennyliyiyuan/Card-Transaction-Fraud-Detection/assets/133256378/d0145350-6d9f-4a21-adc4-c877a9a1eb8a">
+
+<img width="888" alt="Screenshot 2023-10-10 at 5 25 38 PM" src="https://github.com/jennyliyiyuan/Card-Transaction-Fraud-Detection/assets/133256378/499f18a3-3f66-4744-83fa-d8267ac95cea">
 
 Variable
 
