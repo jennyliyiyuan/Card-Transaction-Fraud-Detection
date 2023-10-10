@@ -241,7 +241,7 @@ Filter methods select variables regardless of the model. Instead, features are s
 
 The following table is generally used to define correlation coefficients.
 
-<img width="468" alt="Screenshot 2023-10-10 at 5 18 44 PM" src="https://github.com/jennyliyiyuan/Card-Transaction-Fraud-Detection/assets/133256378/15f89a47-6660-4c8c-9195-f0344353c04b">
+<img width="485" alt="Screenshot 2023-10-10 at 5 20 41 PM" src="https://github.com/jennyliyiyuan/Card-Transaction-Fraud-Detection/assets/133256378/aeb1f7f3-df52-4881-a18a-ade3d4b9b22f">
 
 ● Pearson’s Correlation: It is used as a measure for quantifying linear dependence between two continuous variables X and Y. Its value varies from -1 to +1. Pearson’s correlation is given as:
 
