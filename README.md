@@ -140,3 +140,38 @@ Categorical Fields Summary Table
 
 ## 3. Data Cleaning
 After we explored all the records and fields, we conducted data cleaning by first removing outliers and irrelevant records, and then filling in missing fields.
+
+### 3.1 Exclusions
+We removed one outlier which has an extremely large transaction amount ($3102045.53). And we also removed all the transaction types but the purchase transactions (‘P’).
+
+###  3.2 Filling in missing fields
+We filled in missing fields in the following procedures.
+
+● Fill in Merchnum
+
+    1. Fill in with mode of Merch description
+    
+    2. Fill in with “unknown” for adjustment transactions
+    
+● Fill in Merch state
+
+    1. If the record has a zip, use the state for that zip, if known
+    
+    2. If in range 00600 – 00799, 00900 – 00999: state = PR (Puerto Rico)
+    
+    3. Use the mode of the Merchnum or Merch description
+    
+    4. Fill in with “unknown” for adjustment transactions
+    
+● Fill in Merch zip
+
+    1. Fill in with the mode of Merchnum or Merch description
+
+    2. Fill in with “unknown” for adjustment transactions
+    
+● Fill in with ‘unknown’ for all values that are still missing after the above procedures
+
+## 4. Feature Engineering
+Feature engineering is the process of selecting, manipulating, and transforming raw data into features that can be used in supervised learning. Sometimes, the current fields in the raw data cannot offer us sufficient information we need to detect score, so creating new and meaningful variables are important to help us build a more reliable model.
+
+In this section, we will show our methodology for creating new variables. We don’t really care about the relationship between different variables and we only want to create as many meaningful variables as possible. We will cover how to do the feature selection in the next part.
